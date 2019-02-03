@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SplitMenuButton?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<?import java.net.URL?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="732.0" prefWidth="601.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fi.utu.week1.RentalFlatAdController">
+    <children>
+
+        <Label layoutX="35.0" layoutY="34.0" text="Vuokranantaja">
+            <font>
+                <Font name="System Bold" size="14.0" />
+            </font>
+        </Label>
+        <Label layoutX="33.0" layoutY="72.0" text="Nimi" />
+        <Label layoutX="337.0" layoutY="72.0" text="Puhelin" />
+        <Label layoutX="35.0" layoutY="104.0" text="Tyyppi" />
+        <Label layoutX="337.0" layoutY="104.0" text="Sähköposti" />
+        <TextField fx:id="nameField" layoutX="114.0" layoutY="68.0" />
+        <TextField fx:id="phoneNumberField" layoutX="412.0" layoutY="68.0" />
+        <SplitMenuButton fx:id="rentalTypeMenu" layoutX="113.0" layoutY="100.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0">
+            <items>
+                <MenuItem mnemonicParsing="false" text="Yksityinen" />
+                <MenuItem mnemonicParsing="false" text="Yritys" />
+            </items>
+        </SplitMenuButton>
+        <TextField fx:id="emailField" layoutX="412.0" layoutY="100.0" />
+        <Separator layoutX="10.0" layoutY="141.0" prefHeight="3.0" prefWidth="579.0" />
+
+        <Label layoutX="32.0" layoutY="161.0" text="Asunto">
+            <font>
+                <Font name="System Bold" size="14.0" />
+            </font>
+        </Label>
+        <Label layoutX="33.0" layoutY="196.0" text="Katuosoite" />
+        <Label layoutX="340.0" layoutY="200.0" text="Maa" />
+        <Label layoutX="33.0" layoutY="229.0" text="Postinumero" />
+        <Label layoutX="342.0" layoutY="229.0" text="Kaupunki" />
+        <TextField fx:id="streetAddressField" layoutX="124.0" layoutY="192.0" />
+        <TextField fx:id="countryField" layoutX="416.0" layoutY="192.0" />
+        <TextField fx:id="postalCodeField" layoutX="124.0" layoutY="225.0" />
+        <TextField fx:id="cityField" layoutX="416.0" layoutY="225.0" />
+        <Separator layoutX="12.0" layoutY="262.0" prefHeight="3.0" prefWidth="579.0" />
+
+        <Label layoutX="32.0" layoutY="281.0" text="Rakennusvuosi" />
+        <Label layoutX="338.0" layoutY="281.0" text="Vuokra (€/kk)" />
+        <Label layoutX="32.0" layoutY="311.0" text="Pinta-ala (m2)" />
+        <Label layoutX="340.0" layoutY="311.0" text="Kerros" />
+        <Label layoutX="30.0" layoutY="343.0" text="Kunto" />
+        <Label layoutX="30.0" layoutY="377.0" text="Vapautuu" />
+        <Label layoutX="343.0" layoutY="377.0" text="Sopimus" />
+        <Label layoutX="32.0" layoutY="414.0" text="Ehdot" />
+        <Label layoutX="32.0" layoutY="447.0" text="Kuvaus" />
+        <Label layoutX="344.0" layoutY="447.0" text="Kuva" />
+        <TextField fx:id="builtYearField" layoutX="123.0" layoutY="277.0" />
+        <TextField fx:id="rentAmountField" layoutX="412.0" layoutY="277.0" />
+        <TextField fx:id="flatSizeField" layoutX="123.0" layoutY="307.0" />
+        <SplitMenuButton fx:id="floorMenu" layoutX="412.0" layoutY="307.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0">
+            <items>
+                <MenuItem mnemonicParsing="false" text="1" />
+                <MenuItem mnemonicParsing="false" text="2" />
+                <MenuItem mnemonicParsing="false" text="3" />
+                <MenuItem mnemonicParsing="false" text="4" />
+                <MenuItem mnemonicParsing="false" text="5" />
+                <MenuItem mnemonicParsing="false" text="6" />
+                <MenuItem mnemonicParsing="false" text="7" />
+                <MenuItem mnemonicParsing="false" text="8" />
+                <MenuItem mnemonicParsing="false" text="9" />
+                <MenuItem mnemonicParsing="false" text="10" />
+            </items>
+        </SplitMenuButton>
+        <RadioButton layoutX="126.0" layoutY="343.0" mnemonicParsing="false" text="Erinomainen" />
+        <RadioButton layoutX="239.0" layoutY="343.0" mnemonicParsing="false" text="Hyvä" />
+        <RadioButton layoutX="353.0" layoutY="343.0" mnemonicParsing="false" text="Kohtalainen" />
+        <RadioButton layoutX="478.0" layoutY="343.0" mnemonicParsing="false" text="Tyydyttävä" />
+        <DatePicker fx:id="availableDate" layoutX="126.0" layoutY="373.0" prefHeight="25.0" prefWidth="149.0" />
+        <SplitMenuButton fx:id="contractTypeMenu" layoutX="415.0" layoutY="373.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0">
+            <items>
+                <MenuItem mnemonicParsing="false" text="Toistaiseksi" />
+                <MenuItem mnemonicParsing="false" text="Määräaikainen" />
+            </items>
+        </SplitMenuButton>
+        <TextField fx:id="termsField" layoutX="125.0" layoutY="410.0" prefHeight="25.0" prefWidth="439.0" />
+        <TextArea fx:id="descriptionArea" layoutX="32.0" layoutY="475.0" prefHeight="187.0" prefWidth="262.0" />
+        <Button fx:id="browsePictureButton" layoutX="416.0" layoutY="443.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="55.0" text="Selaa" />
+        <ImageView fx:id="imagePreview" fitHeight="187.0" fitWidth="223.0" layoutX="344.0" layoutY="475.0" pickOnBounds="true" preserveRatio="true" style="-fx-border-color: black; -fx-border-width: 20;" />
+
+        <Button fx:id="continueButton" layoutX="521.0" layoutY="681.0" mnemonicParsing="false" text="Jatka" />
+
+    </children>
+
+    <stylesheets>
+        <URL value="@Rental_ad_form.css" />
+    </stylesheets>
+
+</AnchorPane>
