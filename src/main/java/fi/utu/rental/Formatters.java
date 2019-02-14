@@ -1,4 +1,4 @@
-package fi.utu.week1;
+package fi.utu.rental;
 
 import javafx.scene.control.TextFormatter;
 
