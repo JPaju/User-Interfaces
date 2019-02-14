@@ -7,10 +7,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class MainApp extends Application {
 
 	public static Stage stage;
+	public static List<Asunto> asunnot = new ArrayList<>();
 
 	@Override
 	public void start(Stage stage) throws Exception {

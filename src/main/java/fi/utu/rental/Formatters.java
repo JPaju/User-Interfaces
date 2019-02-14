@@ -45,7 +45,7 @@ public class Formatters {
 	}
 
 	public static TextFormatter<String> phoneNumberFilter() {
-		return integerFilter(9);
+		return integerFilter(10);
 	}
 
 	public static boolean isValidEmail(String textToValidate) {
