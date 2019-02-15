@@ -1,4 +1,4 @@
-package fi.utu.rental.fxmlcontrollers;
+package fi.utu.rental.controller;
 
 import fi.utu.rental.MainApp;
 import fi.utu.rental.RentalFlatAdApp;

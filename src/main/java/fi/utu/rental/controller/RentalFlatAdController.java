@@ -1,4 +1,4 @@
-package fi.utu.rental.fxmlcontrollers;
+package fi.utu.rental.controller;
 
 import fi.utu.rental.Asunto;
 import fi.utu.rental.MainApp;
@@ -14,7 +14,6 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.ResourceBundle;
 
 import static fi.utu.rental.Formatters.*;
@@ -24,14 +23,12 @@ public class RentalFlatAdController implements Initializable {
 	Stage stage;
 	FileChooser imageChooser;
 	File imageFile;
-	Image img;
 
 	@FXML private TextField nameField;
 	@FXML private TextField phoneNumberField;
 	@FXML private TextField emailField;
 
 	@FXML private TextField streetAddressField;
-	@FXML private TextField countryField;
 	@FXML private TextField postalCodeField;
 
 	@FXML private TextField builtYearField;
@@ -71,10 +68,8 @@ public class RentalFlatAdController implements Initializable {
 		apartment.setKohteenDescription(descriptionArea.getText().split("\n"));
 		apartment.setSähkömail(emailField.getText());
 
-		var asunnot = MainApp.asunnot;
-		asunnot.add(apartment);
-
-		asunnot.forEach(System.out::println);
+		MainApp.asunnot.add(apartment);
+		stage.close();
 	}
 
 	public void setStage(Stage stage) {
@@ -86,6 +81,8 @@ public class RentalFlatAdController implements Initializable {
 	}
 
 	private void chooseImage(){
+		imageChooser.setTitle("Choose Picture");
+		imageChooser.setInitialDirectory(new File(System.getProperty("user.home")));
 		imageFile = imageChooser.showOpenDialog(stage);
 		if (imageFile != null) {
 			imagePreview.setImage(new Image(imageFile.toURI().toString()));
@@ -109,7 +106,6 @@ public class RentalFlatAdController implements Initializable {
 		builtYearField.setTextFormatter(integerFilter(4));
 		flatSizeField.setTextFormatter(decimalFilter());
 		rentAmountField.setTextFormatter(decimalFilter());
-
 	}
 
 }

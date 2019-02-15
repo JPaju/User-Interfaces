@@ -1,6 +1,6 @@
 package fi.utu.rental;
 
-import fi.utu.rental.fxmlcontrollers.RentalFlatAdController;
+import fi.utu.rental.controller.RentalFlatAdController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
