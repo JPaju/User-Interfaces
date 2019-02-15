@@ -1,6 +1,6 @@
 package fi.utu.rental;
 
-import fi.utu.rental.fxmlcontrollers.RentalFlatSearchController;
+import fi.utu.rental.controller.RentalFlatSearchController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,7 +8,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class RentalFlatSearchApp extends Application {
-
 
 	@Override
 	public void start(Stage stage) throws Exception {
