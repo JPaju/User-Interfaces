@@ -1,5 +1,7 @@
 package fi.utu.rental;
 
+import javafx.application.Platform;
+
 import java.util.*;
 
 public class AsuntoGeneraattori {
@@ -83,6 +85,7 @@ public class AsuntoGeneraattori {
                 synchronized (lock) {
                     Asunto a = luo();
                     asuntoLista.add(a);
+                    Platform.runLater(() -> MainApp.asunnot.add(a));
                     System.out.println("Luotu "+a);
                     tehtyjäAsuntoja++;
                 }
