@@ -1,11 +1,13 @@
 package fi.utu.rental.controller;
 
 import fi.utu.rental.Asunto;
+import fi.utu.rental.AsuntoAppStore;
 import fi.utu.rental.AsuntoGeneraattori;
 import fi.utu.rental.MainApp;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.binding.IntegerBinding;
+import javafx.beans.binding.StringBinding;
+import javafx.beans.property.*;
 import javafx.collections.transformation.FilteredList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
@@ -24,7 +26,8 @@ import static fi.utu.rental.Formatters.integerFilter;
 
 public class RentalFlatSearchController implements Initializable {
 
-	FilteredList<Asunto> filteredContent = new FilteredList<>(MainApp.asunnot, p -> true);
+	private AsuntoAppStore store = AsuntoAppStore.getInstance();
+	private FilteredList<Asunto> filteredContent = new FilteredList<>(store.getAsunnot(), p -> true);
 
 	@FXML private TextField postalCodeField;
 	@FXML private TextField addressField;
@@ -34,6 +37,8 @@ public class RentalFlatSearchController implements Initializable {
 	@FXML private TextField maxBuiltYearField;
 	@FXML private TextField minFlatSizeField;
 	@FXML private TextField maxFlatSizeField;
+
+	@FXML private TitledPane resultsPane;
 
 	@FXML private TableView<Asunto> resultsList;
 	@FXML private TableColumn<Asunto, String> addressColumn;
@@ -54,7 +59,7 @@ public class RentalFlatSearchController implements Initializable {
 		initFormatters();
 		initFilters();
 
-		MainApp.asunnot.addAll(
+		store.getAsunnot().addAll(
 				AsuntoGeneraattori.luo(),
 				AsuntoGeneraattori.luo(),
 				AsuntoGeneraattori.luo(),
@@ -62,6 +67,7 @@ public class RentalFlatSearchController implements Initializable {
 				AsuntoGeneraattori.luo()
 		);
 
+		resultsPane.textProperty().bind(Bindings.concat("Hakutulokset (").concat(Bindings.size(filteredContent).asString()).concat(" kpl)"));
 		resultsList.setEditable(true);
 		resultsList.setItems(filteredContent);
 
@@ -85,10 +91,10 @@ public class RentalFlatSearchController implements Initializable {
 		Task asuntoTask = new Task<Void>() {
 			@Override
 			protected Void call() throws Exception {
-				AsuntoGeneraattori.luoAsuntoja(amount);
+				AsuntoGeneraattori.luoAsuntoja(amount, store.getAsunnot());
 				while(tehtyjäAsuntoja() < tehtäviäAsuntoja()) {
 					updateProgress(tehtyjäAsuntoja(), tehtäviäAsuntoja());
-					Thread.sleep(500);
+					Thread.sleep(200);
 				}
 
 				updateProgress(0,1);

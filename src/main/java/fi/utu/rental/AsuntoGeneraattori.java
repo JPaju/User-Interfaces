@@ -71,7 +71,7 @@ public class AsuntoGeneraattori {
         return a;
     }
 
-    public static void luoAsuntoja(int kpl) {
+    public static void luoAsuntoja(int kpl, List<Asunto> target) {
         // keskeytetään jos vanha työ kesken
         if (tehtäviäAsuntoja() > tehtyjäAsuntoja()) return;
 
@@ -85,7 +85,7 @@ public class AsuntoGeneraattori {
                 synchronized (lock) {
                     Asunto a = luo();
                     asuntoLista.add(a);
-                    Platform.runLater(() -> MainApp.asunnot.add(a));
+                    Platform.runLater(() ->target.add(a));
                     System.out.println("Luotu "+a);
                     tehtyjäAsuntoja++;
                 }

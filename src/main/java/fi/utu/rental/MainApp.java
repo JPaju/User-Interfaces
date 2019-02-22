@@ -13,7 +13,8 @@ import javafx.stage.Stage;
 public class MainApp extends Application {
 
 	public static Stage stage;
-	public static ObservableList<Asunto> asunnot = FXCollections.observableArrayList();
+
+
 
 	@Override
 	public void start(Stage stage) throws Exception {

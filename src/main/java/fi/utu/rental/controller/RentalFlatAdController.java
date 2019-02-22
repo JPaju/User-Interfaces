@@ -1,6 +1,7 @@
 package fi.utu.rental.controller;
 
 import fi.utu.rental.Asunto;
+import fi.utu.rental.AsuntoAppStore;
 import fi.utu.rental.MainApp;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -19,6 +20,8 @@ import java.util.ResourceBundle;
 import static fi.utu.rental.Formatters.*;
 
 public class RentalFlatAdController implements Initializable {
+
+	private AsuntoAppStore store = AsuntoAppStore.getInstance();
 
 	Stage stage;
 	FileChooser imageChooser;
@@ -68,7 +71,7 @@ public class RentalFlatAdController implements Initializable {
 		apartment.setKohteenDescription(descriptionArea.getText().split("\n"));
 		apartment.setSähkömail(emailField.getText());
 
-		MainApp.asunnot.add(apartment);
+		store.getAsunnot().add(apartment);
 		stage.close();
 	}
 
