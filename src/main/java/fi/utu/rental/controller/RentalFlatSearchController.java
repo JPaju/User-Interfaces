@@ -1,13 +1,11 @@
 package fi.utu.rental.controller;
 
+import fi.utu.rental.AppState;
 import fi.utu.rental.Asunto;
-import fi.utu.rental.AsuntoAppStore;
 import fi.utu.rental.AsuntoGeneraattori;
-import fi.utu.rental.MainApp;
 import javafx.beans.binding.Bindings;
-import javafx.beans.binding.IntegerBinding;
-import javafx.beans.binding.StringBinding;
-import javafx.beans.property.*;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.transformation.FilteredList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
@@ -24,9 +22,8 @@ import static fi.utu.rental.AsuntoGeneraattori.tehtäviäAsuntoja;
 import static fi.utu.rental.Formatters.decimalFilter;
 import static fi.utu.rental.Formatters.integerFilter;
 
-public class RentalFlatSearchController implements Initializable {
+public class RentalFlatSearchController extends AbstractController implements Initializable {
 
-	private AsuntoAppStore store = AsuntoAppStore.getInstance();
 	private FilteredList<Asunto> filteredContent = new FilteredList<>(store.getAsunnot(), p -> true);
 
 	@FXML private TextField postalCodeField;
@@ -55,6 +52,15 @@ public class RentalFlatSearchController implements Initializable {
 
 
 	@Override
+	protected void handleStateChange(AppState newState) {
+		if (newState == AppState.SearchingProperty) {
+			stage.show();
+		} else {
+			stage.hide();
+		}
+	}
+
+	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		initFormatters();
 		initFilters();
@@ -73,20 +79,17 @@ public class RentalFlatSearchController implements Initializable {
 
 		createProgressBar.setManaged(false);
 
-		returnButton.setOnAction(e -> returnButton.getScene().getWindow().hide());
+		returnButton.setOnAction(e -> store.setAppState(AppState.MainMenu));
 		clearFilterButton.setOnAction(e -> clearFilters());
 		createFlatsButton.setOnAction(e -> startFlatCreation(10));
-	}
 
-	public void onClose() {
-		MainApp.stage.show();
+		store.addStateListener((arg, oldValue, newValue) -> handleStateChange(newValue));
 	}
 
 	private void startFlatCreation(int amount) {
 		createFlatsButton.setDisable(true);
 		createProgressBar.setManaged(true);
 		createProgressBar.setVisible(true);
-
 
 		Task asuntoTask = new Task<Void>() {
 			@Override

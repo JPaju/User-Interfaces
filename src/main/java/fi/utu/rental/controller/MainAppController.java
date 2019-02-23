@@ -1,31 +1,36 @@
 package fi.utu.rental.controller;
 
-import fi.utu.rental.MainApp;
-import fi.utu.rental.RentalFlatAdApp;
-import fi.utu.rental.RentalFlatSearchApp;
-import javafx.application.Application;
+import fi.utu.rental.AppState;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.stage.Stage;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 
-public class MainAppController {
+public class MainAppController extends AbstractController implements Initializable {
 
 	@FXML private Button rentalAdButton;
 	@FXML private Button rentalSearchButton;
 
-	public void initialize() {
-		MainApp.stage.setResizable(false);
-		rentalAdButton.setOnAction(e -> startChildApp(new RentalFlatAdApp()));
-		rentalSearchButton.setOnAction(e -> startChildApp(new RentalFlatSearchApp()));
+	@Override
+	protected void handleStateChange(AppState newState) {
+		if (newState == AppState.MainMenu) {
+			stage.show();
+		} else if (newState == AppState.Exit) {
+			Platform.exit();
+		} else {
+			stage.hide();
+		}
 	}
 
-	private void startChildApp(Application app) {
-		try {
-			app.start(new Stage());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		MainApp.stage.hide();
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		rentalAdButton.setOnAction(e -> store.setAppState(AppState.AddingProperty));
+		rentalSearchButton.setOnAction(e -> store.setAppState(AppState.SearchingProperty));
+
+		store.addStateListener((arg, oldValue, newValue) -> handleStateChange(newValue));
 	}
 }

@@ -1,8 +1,7 @@
 package fi.utu.rental.controller;
 
+import fi.utu.rental.AppState;
 import fi.utu.rental.Asunto;
-import fi.utu.rental.AsuntoAppStore;
-import fi.utu.rental.MainApp;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -11,7 +10,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 
 import java.io.File;
 import java.net.URL;
@@ -19,13 +17,10 @@ import java.util.ResourceBundle;
 
 import static fi.utu.rental.Formatters.*;
 
-public class RentalFlatAdController implements Initializable {
+public class RentalFlatAdController extends AbstractController implements Initializable {
 
-	private AsuntoAppStore store = AsuntoAppStore.getInstance();
-
-	Stage stage;
-	FileChooser imageChooser;
-	File imageFile;
+	private FileChooser imageChooser;
+	private File imageFile;
 
 	@FXML private TextField nameField;
 	@FXML private TextField phoneNumberField;
@@ -48,14 +43,17 @@ public class RentalFlatAdController implements Initializable {
 
 	@FXML private ImageView imagePreview;
 
+
 	@Override
 	public void initialize(URL url, ResourceBundle resources) {
 		initFormatters();
 		imageChooser = new FileChooser();
 		browseImageButton.setOnAction(e -> chooseImage());
 		removeImageButton.setOnAction(e -> removeImage());
-		returnButton.setOnAction(e -> stage.hide());
+		returnButton.setOnAction(e -> store.setAppState(AppState.MainMenu));
 		continueButton.setOnAction(e -> submitApartment());
+
+		store.addStateListener((arg, oldValue, newValue) -> handleStateChange(newValue));
 	}
 
 	public void submitApartment() {
@@ -72,15 +70,16 @@ public class RentalFlatAdController implements Initializable {
 		apartment.setSähkömail(emailField.getText());
 
 		store.getAsunnot().add(apartment);
-		stage.close();
+		clearFields();
 	}
 
-	public void setStage(Stage stage) {
-		this.stage = stage;
-	}
-
-	public void onClose() {
-		MainApp.stage.show();
+	@Override
+	protected void handleStateChange(AppState newState) {
+		if (newState == AppState.AddingProperty) {
+			stage.show();
+		} else {
+			stage.hide();
+		}
 	}
 
 	private void chooseImage(){
@@ -109,6 +108,22 @@ public class RentalFlatAdController implements Initializable {
 		builtYearField.setTextFormatter(integerFilter(4));
 		flatSizeField.setTextFormatter(decimalFilter());
 		rentAmountField.setTextFormatter(decimalFilter());
+	}
+
+	private void clearFields() {
+		nameField.clear();
+		phoneNumberField.clear();
+		emailField.clear();
+		streetAddressField.clear();
+		postalCodeField.clear();
+		builtYearField.clear();
+		rentAmountField.clear();
+		flatSizeField.clear();
+		termsField.clear();
+		descriptionArea.clear();
+
+		imageFile = null;
+		imagePreview.setImage(null);
 	}
 
 }
