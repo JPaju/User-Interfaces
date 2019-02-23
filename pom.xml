@@ -10,7 +10,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <mainClass>fi.utu.rental.RentalFlatSearchApp</mainClass>
+        <mainClass>fi.utu.rental.MainApp</mainClass>
     </properties>
 
     <dependencies>
